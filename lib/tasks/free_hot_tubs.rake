@@ -24,6 +24,7 @@ task free_hot_tubs: :environment do
       description: description
     )
   end
+  AdminNotifier.free_hot_tub_notification(fhts.count).deliver
 end
 
 desc 'Remove expired free hot tubs.'
