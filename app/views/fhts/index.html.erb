@@ -1,0 +1,15 @@
+<div class="title">
+  <h1>Free Hot Tub</h1>
+</div>
+
+<% @fhts.each do |fht| %>
+  <div class="tub">
+    <div style="background-color: #BFFFF3;border-bottom: solid 10px #fbccfc;">
+      <h2><%= fht.title %></h2>
+      <a href="<%=fht.link%>">
+        <img src="<%=fht.image_link%>"/>
+      </a>
+      <p><%= fht.description %></p>
+    </div>
+  </div>
+<% end %>

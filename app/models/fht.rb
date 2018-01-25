@@ -1,0 +1,2 @@
+class Fht < ApplicationRecord
+end
