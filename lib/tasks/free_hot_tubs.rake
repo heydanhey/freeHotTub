@@ -25,3 +25,21 @@ task free_hot_tubs: :environment do
     )
   end
 end
+
+desc 'Remove expired free hot tubs.'
+task remove_hot_tubs: :environment do
+  require 'open-uri'
+  Dir.glob("#{Rails.root}/app/models/*.rb").each { |file| require file }
+  fhts = Fht.all
+  fhts.each do |fht|
+    link = fht.link
+    begin
+      open(link, 'User-Agent' => 'Nooby')
+      puts 'POST STILL ACTIVE'
+    rescue OpenURI::HTTPError => e
+      puts e
+      puts 'REMOVING POST'
+      fht.destroy
+    end
+  end
+end
