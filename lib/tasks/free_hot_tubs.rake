@@ -30,13 +30,19 @@ end
 desc 'Remove expired free hot tubs.'
 task remove_hot_tubs: :environment do
   require 'open-uri'
+  require 'nokogiri'
   Dir.glob("#{Rails.root}/app/models/*.rb").each { |file| require file }
   fhts = Fht.all
   fhts.each do |fht|
     link = fht.link
     begin
-      open(link, 'User-Agent' => 'Nooby')
-      puts 'POST STILL ACTIVE'
+      page = Nokogiri::HTML(open(link, 'User-Agent' => 'Nooby'))
+      if page.css('div#userbody').to_s.include?('removed')
+        puts 'REMOVING POST'
+        fht.destroy
+      else
+        puts 'POST STILL ACTIVE'
+      end
     rescue OpenURI::HTTPError => e
       puts e
       puts 'REMOVING POST'
