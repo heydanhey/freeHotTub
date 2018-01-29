@@ -21,7 +21,8 @@ task free_hot_tubs: :environment do
       link: link,
       image_link: image_link,
       title: title,
-      description: description
+      description: description,
+      location: 'chicago'
     )
   end
   AdminNotifier.free_hot_tub_notification(fhts.count).deliver
@@ -32,21 +33,23 @@ task remove_hot_tubs: :environment do
   require 'open-uri'
   require 'nokogiri'
   Dir.glob("#{Rails.root}/app/models/*.rb").each { |file| require file }
-  fhts = Fht.all
+  fhts = Fht.where(is_active: true)
   fhts.each do |fht|
     link = fht.link
     begin
       page = Nokogiri::HTML(open(link, 'User-Agent' => 'Nooby'))
       if page.css('div#userbody').to_s.include?('removed')
         puts 'REMOVING POST'
-        fht.destroy
+        fht.is_active = false
+        fht.save
       else
         puts 'POST STILL ACTIVE'
       end
     rescue OpenURI::HTTPError => e
       puts e
       puts 'REMOVING POST'
-      fht.destroy
+      fht.is_active = false
+      fht.save
     end
   end
 end
