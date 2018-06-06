@@ -1,24 +1,8 @@
-# README
+# FREE HOT TUB
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* `rake free_hot_tubs`
 
-Things you may want to cover:
+* `rake remove_hot_tubs`
 
-* Ruby version
+* [demo](https://free-hot-tub.herokuapp.com/)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
