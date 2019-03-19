@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
 //= require vue
 //= require d3
 //= require crossfilter
