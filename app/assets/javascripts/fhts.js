@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var analyticsRoot = document.getElementById('analytics');
   if (!analyticsRoot) { return; }
 
-  const app = new Vue ({
+  var app = new Vue ({
     el: "#analytics",
     data: {
       fhts: []
