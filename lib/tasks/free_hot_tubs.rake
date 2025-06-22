@@ -22,7 +22,7 @@ task free_hot_tubs: :environment do
     
       link = listing.at_css('a')['href']
 
-      page = Nokogiri::HTML(open(link, 'User-Agent' => 'Nooby'))
+      page = Nokogiri::HTML(URI.open(link, 'User-Agent' => 'Nooby'))
       image_link = page.css('img').empty? ? '' : page.css('img')[0]['src']
       description = page
                     .css('section#postingbody')
